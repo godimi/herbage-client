@@ -359,33 +359,11 @@ A1P4CA.getInitialProps = async ctx => {
   const cookies = new Cookie(ctx.req && ctx.req.headers.cookie)
   const token = cookies.get('token')
 
-  const redirect = to => {
-    if (process.browser) Router.push(to)
-    else {
-      ctx.res.writeHead(302, {
-        Location: to
-      })
-      ctx.res.end()
-    }
-  }
-
-  // 토큰이 있는데 로그인 페이지에 접근
-  if (token && ctx.query.type === 'login') {
-    redirect('/a1p4ca')
-    return
-  }
-
-  // 정상적인 로그인 페이지 접근
-  if (ctx.query.type === 'login') {
+  // 토큰이 없는데 관리자 페이지 접근
+  if (!token) {
     return {
       isLoginPage: true
     }
-  }
-
-  // 토큰이 없는데 관리자 페이지 접근
-  if (!token && !ctx.query.type) {
-    redirect('/a1p4ca/login')
-    return
   }
 
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -412,13 +390,15 @@ A1P4CA.getInitialProps = async ctx => {
       case 401:
         toast.error('토큰이 만료됨!')
         cookies.remove('token')
-        redirect('/a1p4ca/login')
-        break
+        return {
+          isLoginPage: true
+        }
       default:
         toast.error('잘못됨!')
         cookies.remove('token')
-        redirect('/a1p4ca/login')
-        break
+        return {
+          isLoginPage: true
+        }
     }
   }
 }
