@@ -78,13 +78,13 @@ ThemeWrapper.propTypes = {
 
 class CustomApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const proto = ctx.req
-      ? ctx.req.headers['x-forwarded-proto']
-      : window.location.protocol.replace(':', '')
-    const host = ctx.req
-      ? ctx.req.headers['x-forwarded-host'] || ctx.req.headers.host
-      : window.location.host
-    axios.defaults.baseURL = `${proto}://${host}/`
+    // const proto = ctx.req
+    //   ? ctx.req.headers['x-forwarded-proto']
+    //   : window.location.protocol.replace(':', '')
+    // const host = ctx.req
+    //   ? ctx.req.headers['x-forwarded-host'] || ctx.req.headers.host
+    //   : window.location.host
+    // axios.defaults.baseURL = `${proto}://${host}/`
 
     return {
       pageProps:

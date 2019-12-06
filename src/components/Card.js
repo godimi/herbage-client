@@ -20,7 +20,7 @@ function Card({ post, isManage = false }) {
         </span>
       </h3>
       <span>
-        {format(post.createdAt, 'YYYY년 MM월 DD일') +
+        {format(post.createdAt, 'yyyy년 MM월 dd일') +
           ` ${timeText(post.createdAt)}`}
       </span>
       {post.title && <h4>{post.title}</h4>}

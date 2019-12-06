@@ -8,7 +8,7 @@ export async function getPosts(
   { safe } = { safe: false }
 ) {
   try {
-    return await axios.get('/api/posts', {
+    return await axios.get('/posts', {
       params: {
         count,
         cursor,
@@ -29,7 +29,7 @@ export async function getPosts(
 }
 
 export async function createPost({ title, content, answer, verifier, tag }) {
-  return (await axios.post('/api/posts', {
+  return (await axios.post('/posts', {
     title,
     content,
     tag,
@@ -41,31 +41,31 @@ export async function createPost({ title, content, answer, verifier, tag }) {
 }
 
 export async function getPost(hash) {
-  return (await axios.get(`/api/posts/${hash}`)).data
+  return (await axios.get(`/posts/${hash}`)).data
 }
 
 export async function acceptPost({ id, fbLink }) {
-  return (await axios.patch(`/api/posts/${id}`, {
+  return (await axios.patch(`/posts/${id}`, {
     status: 'ACCEPTED',
     fbLink
   })).data
 }
 
 export async function rejectPost({ id, reason }) {
-  return (await axios.patch(`/api/posts/${id}`, {
+  return (await axios.patch(`/posts/${id}`, {
     status: 'REJECTED',
     reason
   })).data
 }
 
 export async function modifyPost(post) {
-  return (await axios.patch(`/api/posts/${post.id}`, post)).data
+  return (await axios.patch(`/posts/${post.id}`, post)).data
 }
 
 export async function deletePost(arg) {
-  await axios.delete(`/api/posts/${arg}`)
+  await axios.delete(`/posts/${arg}`)
 }
 
 export async function getNewNumber() {
-  return (await axios.get('/api/posts/number')).data.newNumber
+  return (await axios.get('/posts/number')).data.newNumber
 }

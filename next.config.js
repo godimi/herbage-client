@@ -19,5 +19,8 @@ module.exports = withCSS({
       loader: 'json5-loader'
     })
     return config
+  },
+  env: {
+    API_URL: process.env.API_URL
   }
 })

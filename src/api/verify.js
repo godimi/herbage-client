@@ -2,7 +2,7 @@ import axios from './axios'
 
 export async function getVerifier({ safe } = { safe: false }) {
   try {
-    return await axios.get('/api/verifier')
+    return await axios.get('/verify')
   } catch (err) {
     if (!safe) throw err
     return {
