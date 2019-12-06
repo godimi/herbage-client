@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import { CookiesProvider, useCookies } from 'react-cookie'
@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify'
 import Cookie from 'universal-cookie'
 import 'react-toastify/dist/ReactToastify.css'
 import ThemeContext from '../src/contexts/ThemeContext'
-import axios from '../src/api/axios'
 
 function ThemeWrapper({ children }) {
   const [cookies, setCookie] = useCookies(['theme'])
@@ -98,13 +97,11 @@ class CustomApp extends App {
   render() {
     const { Component, pageProps, cookies } = this.props
     return (
-      <Container>
-        <CookiesProvider cookies={process.browser ? false : cookies}>
-          <ThemeWrapper>
-            <Component {...pageProps} />
-          </ThemeWrapper>
-        </CookiesProvider>
-      </Container>
+      <CookiesProvider cookies={process.browser ? false : cookies}>
+        <ThemeWrapper>
+          <Component {...pageProps} />
+        </ThemeWrapper>
+      </CookiesProvider>
     )
   }
 }
