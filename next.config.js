@@ -1,6 +1,10 @@
 require('dotenv').config()
 const withCSS = require('@zeit/next-css')
 
+console.log('asdasodifnoasidnfioaweofijaoiejf\n\n\n')
+console.log(process.env.API_URL)
+console.log('\n\n\n\n\nasdfasdfasdfasdf')
+
 module.exports = withCSS({
   target: 'serverless',
   webpack(config) {
