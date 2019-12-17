@@ -19,7 +19,10 @@ export default function Index({ postData, verifier }) {
   const [isFetching, setIsFetching] = useInfiniteScroll(
     async () => {
       try {
-        const fetchedPosts = await getPosts(10, cursor)
+        const fetchedPosts = await getPosts({
+          count: 10,
+          cursor
+        })
         setCursor(fetchedPosts.data.cursor)
         setHasNext(fetchedPosts.data.hasNext)
         setPosts([...posts, ...fetchedPosts.data.posts])
@@ -202,7 +205,7 @@ export default function Index({ postData, verifier }) {
 Index.getInitialProps = async ctx => {
   delete axios.defaults.headers.common['Authorization']
 
-  const fetchPosts = getPosts(15, undefined, { safe: true })
+  const fetchPosts = getPosts({ count: 15, safe: true })
   const fetchVerifier = getVerifier({ safe: true })
 
   const postData = (await fetchPosts).data

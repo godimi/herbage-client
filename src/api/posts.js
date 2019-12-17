@@ -1,12 +1,12 @@
 import axios from './axios'
-import { PENDING } from '../utils/post-status'
+import { ACCEPTED } from '../utils/post-status'
 
-export async function getPosts(
+export async function getPosts({
   count = 10,
   cursor,
-  status = PENDING,
-  { safe } = { safe: false }
-) {
+  status = ACCEPTED,
+  safe = false
+}) {
   try {
     return await axios.get('/posts', {
       params: {
@@ -17,6 +17,7 @@ export async function getPosts(
     })
   } catch (err) {
     if (!safe) throw err
+    console.log(err)
     return {
       data: {
         error: '서버에 문제가 생겼습니다.',
