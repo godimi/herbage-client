@@ -9,7 +9,7 @@ export async function getPosts({
 }) {
   try {
     console.log(axios.defaults.baseURL)
-    return await axios.get('https://api.bamboo.dimigo.dev/posts', {
+    return await axios.get('/posts', {
       params: {
         count,
         cursor,
