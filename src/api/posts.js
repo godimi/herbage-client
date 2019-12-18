@@ -8,7 +8,7 @@ export async function getPosts({
   safe = false
 }) {
   try {
-    return await axios.get('/posts', {
+    return await axios.get('https://api.bamboo.dimigo.dev/posts', {
       params: {
         count,
         cursor,
