@@ -6,7 +6,6 @@ console.log(process.env.API_URL)
 console.log('\n\n\n\n\nasdfasdfasdfasdf')
 
 module.exports = withCSS({
-  target: 'serverless',
   webpack(config) {
     config.module.rules.push({
       test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/,
