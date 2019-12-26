@@ -8,7 +8,6 @@ export async function getPosts({
   safe = false
 }) {
   try {
-    console.log(axios.defaults.baseURL)
     return await axios.get('/posts', {
       params: {
         count,
