@@ -88,7 +88,11 @@ function Admin({ postData, userData }) {
   const [statusFilter, setStatusFilter] = useState(PENDING)
 
   const fetch = async () => {
-    const fetchedPosts = await getPosts(20, cursor, statusFilter)
+    const fetchedPosts = await getPosts({
+      count: 20,
+      cursor,
+      status: statusFilter
+    })
     setCursor(fetchedPosts.data.cursor)
     setHasNext(fetchedPosts.data.hasNext)
     setPosts([...posts, ...fetchedPosts.data.posts])
@@ -369,7 +373,10 @@ A1P4CA.getInitialProps = async ctx => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
   try {
-    const postData = await getPosts(15, null, PENDING)
+    const postData = await getPosts({
+      count: 15,
+      status: PENDING
+    })
     const userData = jwt.decode(token)
 
     return {
