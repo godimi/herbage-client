@@ -8,6 +8,9 @@ import { tags } from '../utils/post-tags'
 import TextArea from './TextArea'
 import { verifyCaptcha } from '../api/recaptcha'
 import ReCAPTCHA from 'react-google-recaptcha'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const spinAnimation = css.resolve`
   .spin {
@@ -105,7 +108,7 @@ function Form({ onSubmit, verifier }) {
           <div className="flex">
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey={process.env.RECAPTCHA_KEY}
+              sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
               size="invisible"
               hl="ko"
               onChange={token => onCaptchaResponse(token)}
