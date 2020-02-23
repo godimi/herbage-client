@@ -6,7 +6,6 @@ import classNames from 'classnames'
 import { toast } from 'react-toastify'
 import { tags } from '../utils/post-tags'
 import TextArea from './TextArea'
-import { verifyCaptcha } from '../api/recaptcha'
 import ReCAPTCHA from 'react-google-recaptcha'
 import getConfig from 'next/config'
 
@@ -68,21 +67,15 @@ function Form({ onSubmit, verifier }) {
     recaptchaRef.current.execute()
   }
 
-  const onCaptchaResponse = async token => {
-    const { success } = await verifyCaptcha(token)
-    if (!success) {
-      setLoading(false)
-      toast.error('캡차가 잘못되었습니다.')
-      return
-    }
-
+  const onCaptchaResponse = async captcha => {
     await onSubmit(
       {
         content,
         title,
         verifier,
         answer,
-        tag
+        tag,
+        captcha
       },
       reset
     )

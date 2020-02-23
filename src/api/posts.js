@@ -29,7 +29,14 @@ export async function getPosts({
   }
 }
 
-export async function createPost({ title, content, answer, verifier, tag }) {
+export async function createPost({
+  title,
+  content,
+  answer,
+  verifier,
+  tag,
+  captcha
+}) {
   return (await axios.post('/posts', {
     title,
     content,
@@ -37,7 +44,8 @@ export async function createPost({ title, content, answer, verifier, tag }) {
     verifier: {
       id: verifier.id,
       answer: answer
-    }
+    },
+    captcha
   })).data
 }
 

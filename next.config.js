@@ -21,7 +21,6 @@ module.exports = withCSS({
   },
   publicRuntimeConfig: {
     API_URL: process.env.API_URL,
-    RECAPTCHA_KEY: process.env.RECAPTCHA_KEY,
-    RECAPTCHA_SECRET: process.env.RECAPTCHA_SECRET
+    RECAPTCHA_KEY: process.env.RECAPTCHA_KEY
   }
 })
