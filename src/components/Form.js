@@ -6,6 +6,8 @@ import classNames from 'classnames'
 import { toast } from 'react-toastify'
 import { tags } from '../utils/post-tags'
 import TextArea from './TextArea'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
+import { verifyCaptcha } from '../api/recaptcha'
 
 const spinAnimation = css.resolve`
   .spin {
@@ -30,6 +32,7 @@ function Form({ onSubmit, verifier }) {
   const [tag, setTag] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [submitChecked, setSubmitChecked] = useState(false)
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
   const reset = () => {
     setTitle('')
@@ -58,6 +61,15 @@ function Form({ onSubmit, verifier }) {
     }
 
     setLoading(true)
+
+    const token = await executeRecaptcha('submit')
+    const { success } = await verifyCaptcha(token)
+    if (!success) {
+      setLoading(false)
+      toast.error('캡차가 잘못되었습니다.')
+      return
+    }
+
     await onSubmit(
       {
         content,

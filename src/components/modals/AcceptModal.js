@@ -84,7 +84,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
             <CopyToClipboard
               text={
                 `#${newNumber}번째코드\n` +
-                format(post.createdAt, 'YYYY년 MM월 DD일') +
+                format(post.createdAt, 'yyyy년 MM월 dd일') +
                 ` ${timeText(post.createdAt)}\n\n` +
                 (post.title ? `<${post.title}>\n\n` : '') +
                 post.content +
