@@ -105,10 +105,10 @@ function Form({ onSubmit, verifier }) {
           <div className="flex">
             <ReCAPTCHA
               ref={recaptchaRef}
+              sitekey={process.env.RECAPTCHA_KEY}
               size="invisible"
               hl="ko"
               onChange={token => onCaptchaResponse(token)}
-              sitekey={process.env.RECAPTCHA_KEY}
             />
             <label htmlFor="title-input">제목 (선택)</label>
             <input
