@@ -8,7 +8,7 @@ class CustomDocument extends Document {
 
   render() {
     return (
-      <Html style={{ overflowX: 'hidden' }}>
+      <Html>
         <Head>
           <meta property="og:title" content="디대숲" />
           <meta
@@ -46,7 +46,7 @@ class CustomDocument extends Document {
             type="text/css"
           />
         </Head>
-        <body>
+        <body style={{ overflowX: 'hidden' }}>
           <Main />
           <NextScript />
         </body>
