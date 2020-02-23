@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import css from 'styled-jsx/css'
 import { FiLoader } from 'react-icons/fi'
@@ -6,6 +6,10 @@ import classNames from 'classnames'
 import { toast } from 'react-toastify'
 import { tags } from '../utils/post-tags'
 import TextArea from './TextArea'
+import ReCAPTCHA from 'react-google-recaptcha'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const spinAnimation = css.resolve`
   .spin {
@@ -30,6 +34,7 @@ function Form({ onSubmit, verifier }) {
   const [tag, setTag] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [submitChecked, setSubmitChecked] = useState(false)
+  const recaptchaRef = useRef(null)
 
   const reset = () => {
     setTitle('')
@@ -58,13 +63,19 @@ function Form({ onSubmit, verifier }) {
     }
 
     setLoading(true)
+
+    recaptchaRef.current.execute()
+  }
+
+  const onCaptchaResponse = async captcha => {
     await onSubmit(
       {
         content,
         title,
         verifier,
         answer,
-        tag
+        tag,
+        captcha
       },
       reset
     )
@@ -88,6 +99,13 @@ function Form({ onSubmit, verifier }) {
       ) : (
         <>
           <div className="flex">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
+              size="invisible"
+              hl="ko"
+              onChange={token => onCaptchaResponse(token)}
+            />
             <label htmlFor="title-input">제목 (선택)</label>
             <input
               id="title-input"

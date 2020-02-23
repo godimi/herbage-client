@@ -1,6 +1,5 @@
 require('dotenv').config()
 const withCSS = require('@zeit/next-css')
-const webpack = require('webpack')
 
 module.exports = withCSS({
   webpack(config) {
@@ -18,14 +17,10 @@ module.exports = withCSS({
       test: /\.json5$/,
       loader: 'json5-loader'
     })
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        API_URL: process.env.API_URL
-      })
-    )
     return config
   },
-  env: {
-    API_URL: process.env.API_URL
+  publicRuntimeConfig: {
+    API_URL: process.env.API_URL,
+    RECAPTCHA_KEY: process.env.RECAPTCHA_KEY
   }
 })
