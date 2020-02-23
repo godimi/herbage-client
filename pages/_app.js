@@ -66,6 +66,9 @@ function ThemeWrapper({ children }) {
         strong {
           color: ${isLight ? '#4caf50' : '#0076d1'};
         }
+        .grecaptcha-badge {
+          visibility: hidden;
+        }
       `}</style>
     </>
   )

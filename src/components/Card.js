@@ -106,6 +106,7 @@ function Card({ post, isManage = false }) {
         p {
           font-size: 18px;
           line-height: 1.825;
+          overflow-wrap: break-word;
           -webkit-font-smoothing: antialiased;
         }
       `}</style>
