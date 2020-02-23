@@ -1,5 +1,6 @@
 const timeText = time => {
-  const hours = new Date(time).getHours()
+  let hours = new Date(time).getUTCHours() + 9
+  if (hours > 23) hours -= 24
   let text
   if (hours < 6) text = '새벽'
   else if (hours < 11) text = '아침'
