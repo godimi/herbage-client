@@ -99,13 +99,6 @@ function Form({ onSubmit, verifier }) {
       ) : (
         <>
           <div className="flex">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
-              size="invisible"
-              hl="ko"
-              onChange={token => onCaptchaResponse(token)}
-            />
             <label htmlFor="title-input">제목 (선택)</label>
             <input
               id="title-input"
@@ -153,6 +146,12 @@ function Form({ onSubmit, verifier }) {
             placeholder="타인을 향한 욕설 및 비방은 징계 대상입니다. (최대 3000자)"
             required
           />
+          <div className="recaptcha-policy">
+            이 사이트는 reCAPTCHA에 의해 보호되며 Google{' '}
+            <a href="https://policies.google.com/privacy">개인정보 취급 방침</a>{' '}
+            및 <a href="https://policies.google.com/terms">서비스 약관</a>이
+            적용됩니다.
+          </div>
           <button type="submit">
             {!isLoading ? (
               submitChecked ? (
@@ -169,6 +168,13 @@ function Form({ onSubmit, verifier }) {
           <a href="/policy" style={{ marginLeft: '1rem' }}>
             게시 규정 >
           </a>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
+            size="invisible"
+            hl="ko"
+            onChange={token => onCaptchaResponse(token)}
+          />
         </>
       )}
       {spinAnimation.styles}
@@ -225,6 +231,11 @@ function Form({ onSubmit, verifier }) {
           display: inline-block;
           text-align: center;
           margin: 0 0 6px 0;
+        }
+
+        .recaptcha-policy {
+          font-size: 0.7rem;
+          padding-bottom: 10px;
         }
       `}</style>
     </form>

@@ -46,7 +46,7 @@ class CustomDocument extends Document {
             type="text/css"
           />
         </Head>
-        <body style={{ overflowX: 'hidden' }}>
+        <body>
           <Main />
           <NextScript />
         </body>
