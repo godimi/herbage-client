@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
+import Head from 'next/head'
 import PropTypes from 'prop-types'
 import { toast } from 'react-toastify'
 import Form from '../src/components/Form'
@@ -111,6 +112,12 @@ export default function Index({ postData, verifier }) {
 
   return (
     <>
+      <Head>
+        <meta
+          property="og:description"
+          content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
+        />
+      </Head>
       <div className="nav">
         <h1>
           디<span style={{ fontSize: 14 }}>미고</span>대

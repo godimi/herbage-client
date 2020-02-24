@@ -88,7 +88,8 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
                 ` ${timeText(post.createdAt)}\n\n` +
                 (post.title ? `<${post.title}>\n\n` : '') +
                 post.content +
-                `\n\n#${(post.tag || '').replace(/\s/g, '')}`
+                `\n\n#${(post.tag || '').replace(/\s/g, '')}` +
+                `\n\nhttps://bamboo.dimigo.dev/post/${newNumber}`
               }
               onCopy={() => setCopySuccess(true)}
             >
