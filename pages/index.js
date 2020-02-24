@@ -5,7 +5,12 @@ import Form from '../src/components/Form'
 import Card from '../src/components/Card'
 import ThemeContext from '../src/contexts/ThemeContext'
 import { getVerifier } from '../src/api/verify'
-import { createPost, deletePost, getPosts, getPost } from '../src/api/posts'
+import {
+  createPost,
+  deletePost,
+  getPosts,
+  getPostByHash
+} from '../src/api/posts'
 import useInfiniteScroll from '../src/hooks/useInfiniteScroll'
 import axios from '../src/api/axios'
 import ManageModal from '../src/components/modals/ManageModal'
@@ -89,7 +94,7 @@ export default function Index({ postData, verifier }) {
   const handleManage = async (hash, post, reset) => {
     if (!post) {
       try {
-        return await getPost(hash)
+        return await getPostByHash(hash)
       } catch (err) {
         handleError(err)
         return
