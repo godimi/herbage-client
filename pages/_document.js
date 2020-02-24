@@ -11,10 +11,6 @@ class CustomDocument extends Document {
       <Html>
         <Head>
           <meta property="og:title" content="디대숲" />
-          <meta
-            property="og:description"
-            content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
-          />
           <meta property="fb:pages" content="1816017501965810" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
