@@ -1,4 +1,5 @@
 import Router from 'next/router'
+import Head from 'next/head'
 import PropTypes from 'prop-types'
 import Card from '../../src/components/Card'
 import { getPost } from '../../src/api/posts'
@@ -6,6 +7,9 @@ import { getPost } from '../../src/api/posts'
 function Post({ post }) {
   return (
     <>
+      <Head>
+        <meta property="og:title" content={`${post.number}번째코드`} />
+      </Head>
       <div className="nav">
         <h1 onClick={() => Router.push('/')}>
           디<span style={{ fontSize: 14 }}>미고</span>대
