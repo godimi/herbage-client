@@ -1,21 +1,9 @@
-import Router, { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import Router from 'next/router'
+import PropTypes from 'prop-types'
 import Card from '../../src/components/Card'
 import { getPost } from '../../src/api/posts'
 
-function Post() {
-  const router = useRouter()
-  const { number } = router.query
-  const [post, setPost] = useState(null)
-
-  async function fetchPost() {
-    setPost(await getPost(number))
-  }
-
-  useEffect(() => {
-    fetchPost()
-  }, [])
-
+function Post({ post }) {
   return (
     <>
       <div className="nav">
@@ -42,6 +30,19 @@ function Post() {
       `}</style>
     </>
   )
+}
+
+Post.getInitialProps = async ({ query }) => {
+  const { number } = query
+  const post = await getPost(number)
+
+  return {
+    post
+  }
+}
+
+Post.propTypes = {
+  post: PropTypes.object
 }
 
 export default Post
