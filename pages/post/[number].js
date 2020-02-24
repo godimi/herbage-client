@@ -9,6 +9,7 @@ function Post({ post }) {
     <>
       <Head>
         <meta property="og:title" content={`${post.number}번째코드`} />
+        <meta property="og:description" content={post.content} />
       </Head>
       <div className="nav">
         <h1 onClick={() => Router.push('/')}>
@@ -46,7 +47,15 @@ Post.getInitialProps = async ({ query }) => {
 }
 
 Post.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    number: PropTypes.number,
+    title: PropTypes.string,
+    content: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired,
+    fbLink: PropTypes.string,
+    createdAt: PropTypes.number
+  })
 }
 
 export default Post
