@@ -49,8 +49,12 @@ export async function createPost({
   })).data
 }
 
-export async function getPost(hash) {
-  return (await axios.get(`/posts/${hash}`)).data
+export async function getPost(number) {
+  return (await axios.get(`/posts/${number}`)).data
+}
+
+export async function getPostByHash(hash) {
+  return (await axios.get(`/posts/hash/${hash}`)).data
 }
 
 export async function acceptPost({ id, fbLink }) {
