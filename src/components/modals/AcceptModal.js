@@ -80,7 +80,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
         <p>1. 아래 버튼을 눌러 글을 승인하세요.</p>
         <button
           type="button"
-          disabled={isLoading || post.status === 'ACCEPTED'}
+          disabled={isLoading || post.status === 'ACCEPTED' || newNumber}
           onClick={handleAccept}
         >
           {!isLoading ? (
@@ -105,7 +105,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
           }
           onCopy={() => setCopySuccess(true)}
         >
-          <button type="button" disabled={newNumber}>
+          <button type="button" disabled={!newNumber}>
             클립보드에 복사
           </button>
         </CopyToClipboard>
