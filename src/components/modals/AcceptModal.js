@@ -40,15 +40,14 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
   const handleAccept = async () => {
     setLoading(true)
     const acceptedPost = await acceptPost({
-      id,
-      fbLink
+      id
     })
 
     setNewNumber(acceptedPost.number)
     setLoading(false)
   }
 
-  const handleUpdateNumber = async e => {
+  const handleUpdateFbLink = async e => {
     e.preventDefault()
 
     if (fbLink.length === 0) {
@@ -71,7 +70,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
 
   return (
     <BaseModal modalName="accept" content={post} modalHandler={modalHandler}>
-      <form onSubmit={handleUpdateNumber}>
+      <form onSubmit={handleUpdateFbLink}>
         <p>
           <strong>
             * 특별한 이유가 없다면 반드시 시간 순서대로 제보를 처리하세요.

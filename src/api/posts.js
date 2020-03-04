@@ -59,8 +59,7 @@ export async function getPostByHash(hash) {
 
 export async function acceptPost({ id, fbLink }) {
   return (await axios.patch(`/posts/${id}`, {
-    status: 'ACCEPTED',
-    fbLink
+    status: 'ACCEPTED'
   })).data
 }
 
