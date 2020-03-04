@@ -13,10 +13,10 @@ import { generateToken } from '../src/api/admin-token'
 import useInfiniteScroll from '../src/hooks/useInfiniteScroll'
 import {
   getPosts,
-  acceptPost,
   rejectPost,
   modifyPost,
-  deletePost
+  deletePost,
+  updateFbLink
 } from '../src/api/posts'
 import axios from '../src/api/axios'
 import { ACCEPTED, REJECTED, PENDING, DELETED } from '../src/utils/post-status'
@@ -173,8 +173,8 @@ function Admin({ postData, userData }) {
 
   const handleAccept = async (data, reset) => {
     try {
-      const newData = await acceptPost(data)
-      updatePosts(data.id, newData)
+      const acceptedPost = await updateFbLink(data)
+      updatePosts(data.id, acceptedPost)
       reset()
       handleModal('accept')
       toast.success('성공적으로 승인되었습니다.')

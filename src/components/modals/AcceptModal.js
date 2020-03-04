@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { FiLoader } from 'react-icons/fi'
 import classNames from 'classnames'
@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import css from 'styled-jsx/css'
 import BaseModal from './BaseModal'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { getNewNumber } from '../../api/posts'
 import format from 'date-fns/format'
 import timeText from '../../utils/timeText'
+import { acceptPost } from '../../api/posts'
 
 const spinAnimation = css.resolve`
   .spin {
@@ -29,8 +29,7 @@ const spinAnimation = css.resolve`
 function AcceptModal({ post, modalHandler, onSubmit }) {
   const [fbLink, setFbLink] = useState('')
   const [isLoading, setLoading] = useState(false)
-  const [isNewNumberFetching, setNewNumberFetching] = useState(false)
-  const [newNumber, setNewNumber] = useState(0)
+  const [newNumber, setNewNumber] = useState(null)
   const [isCopySuccess, setCopySuccess] = useState(false)
 
   const reset = () => {
@@ -38,7 +37,18 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
     setCopySuccess(false)
   }
   const id = post ? post.id : -1
-  const handleSubmit = async e => {
+  const handleAccept = async () => {
+    setLoading(true)
+    const acceptedPost = await acceptPost({
+      id,
+      fbLink
+    })
+
+    setNewNumber(acceptedPost.number)
+    setLoading(false)
+  }
+
+  const handleUpdateNumber = async e => {
     e.preventDefault()
 
     if (fbLink.length === 0) {
@@ -47,6 +57,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
     }
 
     setLoading(true)
+
     await onSubmit(
       {
         id,
@@ -54,56 +65,54 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
       },
       reset
     )
+
     setLoading(false)
   }
 
-  const numberTask = async () => {
-    setNewNumberFetching(true)
-    setNewNumber(await getNewNumber())
-    setNewNumberFetching(false)
-  }
-
-  useEffect(() => {
-    if (post) numberTask()
-  }, [post])
-
   return (
     <BaseModal modalName="accept" content={post} modalHandler={modalHandler}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpdateNumber}>
         <p>
           <strong>
             * 특별한 이유가 없다면 반드시 시간 순서대로 제보를 처리하세요.
           </strong>
         </p>
+        <p>1. 아래 버튼을 눌러 글을 승인하세요.</p>
+        <button
+          type="button"
+          disabled={isLoading || post.status === 'ACCEPTED' || newNumber}
+          onClick={handleAccept}
+        >
+          {!isLoading ? (
+            '승인'
+          ) : (
+            <FiLoader className={classNames('spin', spinAnimation.className)} />
+          )}
+        </button>
         <p>
-          1. 아래 버튼을 클릭하고 페이스북 페이지에 게시글로 붙여넣기하여
+          2. 아래 버튼을 클릭하고 페이스북 페이지에 게시글로 붙여넣기하여
           업로드하세요.
         </p>
-        {post && (
-          <>
-            <CopyToClipboard
-              text={
-                `#${newNumber}번째코드\n` +
-                format(post.createdAt, 'yyyy년 MM월 dd일') +
-                ` ${timeText(post.createdAt)}\n\n` +
-                (post.title ? `<${post.title}>\n\n` : '') +
-                post.content +
-                `\n\n#${(post.tag || '').replace(/\s/g, '')}` +
-                `\n\nhttps://bamboo.dimigo.dev/post/${newNumber}`
-              }
-              onCopy={() => setCopySuccess(true)}
-            >
-              <button type="button" disabled={isNewNumberFetching}>
-                클립보드에 복사
-              </button>
-            </CopyToClipboard>
-            {isCopySuccess && (
-              <span className="clipboard-text">클립보드에 복사되었습니다.</span>
-            )}
-          </>
+        <CopyToClipboard
+          text={
+            `#${newNumber}번째코드\n` +
+            format(post.createdAt, 'yyyy년 MM월 dd일') +
+            ` ${timeText(post.createdAt)}\n\n` +
+            (post.title ? `<${post.title}>\n\n` : '') +
+            post.content +
+            `\n\n#${(post.tag || '').replace(/\s/g, '')}` +
+            `\n\nhttps://bamboo.dimigo.dev/post/${newNumber}`
+          }
+          onCopy={() => setCopySuccess(true)}
+        >
+          <button type="button" disabled={!newNumber}>
+            클립보드에 복사
+          </button>
+        </CopyToClipboard>
+        {isCopySuccess && (
+          <span className="clipboard-text">클립보드에 복사되었습니다.</span>
         )}
-
-        <p>2. 게시글의 URL을 아래에 붙여넣기 하세요.</p>
+        <p>3. 게시글의 URL을 아래에 붙여넣기 하세요.</p>
         <label htmlFor="link-input">페이스북 링크</label>
         <input
           id="link-input"
@@ -117,7 +126,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
 
         <button type="submit" disabled={isLoading}>
           {!isLoading ? (
-            '승인'
+            '확인'
           ) : (
             <FiLoader className={classNames('spin', spinAnimation.className)} />
           )}
