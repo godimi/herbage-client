@@ -148,7 +148,7 @@ function Form({ onSubmit, verifier }) {
           />
           <div className="recaptcha-policy">
             이 사이트는 reCAPTCHA에 의해 보호되며 Google{' '}
-            <a href="https://policies.google.com/privacy">개인정보 취급 방침</a>{' '}
+            <a href="https://policies.google.com/privacy">개인정보처리방침</a>{' '}
             및 <a href="https://policies.google.com/terms">서비스 약관</a>이
             적용됩니다.
           </div>

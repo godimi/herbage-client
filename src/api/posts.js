@@ -75,10 +75,10 @@ export async function modifyPost(post) {
   return (await axios.patch(`/posts/${post.id}`, post)).data
 }
 
-export async function deletePost(arg) {
-  await axios.delete(`/posts/${arg}`)
+export async function updateFbLink(post) {
+  return (await axios.patch(`/posts/${post.id}`, post)).data
 }
 
-export async function getNewNumber() {
-  return (await axios.get('/posts/number')).data.newNumber
+export async function deletePost(arg) {
+  await axios.delete(`/posts/${arg}`)
 }
