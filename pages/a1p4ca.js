@@ -16,7 +16,7 @@ import {
   rejectPost,
   modifyPost,
   deletePost,
-  updateFbLink
+  acceptPost
 } from '../src/api/posts'
 import axios from '../src/api/axios'
 import { ACCEPTED, REJECTED, PENDING, DELETED } from '../src/utils/post-status'
@@ -171,13 +171,24 @@ function Admin({ postData, userData }) {
     }
   }
 
-  const handleAccept = async (data, reset) => {
+  const handleAccept = async id => {
     try {
-      const acceptedPost = await updateFbLink(data)
+      const acceptedPost = await acceptPost(id)
+      updatePosts(id, acceptedPost)
+      toast.success('성공적으로 승인되었습니다.')
+      return acceptedPost
+    } catch (err) {
+      handleError(err)
+    }
+  }
+
+  const handleUpdateFbLink = async (data, reset) => {
+    try {
+      const acceptedPost = await modifyPost(data)
       updatePosts(data.id, acceptedPost)
       reset()
       handleModal('accept')
-      toast.success('성공적으로 승인되었습니다.')
+      toast.success('링크가 성공적으로 업데이트되었습니다.')
     } catch (err) {
       handleError(err)
     }
@@ -325,7 +336,8 @@ function Admin({ postData, userData }) {
         <AcceptModal
           post={modal.accept}
           modalHandler={handleModal}
-          onSubmit={handleAccept}
+          onAccept={handleAccept}
+          onUpdateFbLink={handleUpdateFbLink}
         />
       )}
       <RejectModal

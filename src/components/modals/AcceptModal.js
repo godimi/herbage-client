@@ -8,7 +8,6 @@ import BaseModal from './BaseModal'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import format from 'date-fns/format'
 import timeText from '../../utils/timeText'
-import { acceptPost } from '../../api/posts'
 
 const spinAnimation = css.resolve`
   .spin {
@@ -26,7 +25,7 @@ const spinAnimation = css.resolve`
   }
 `
 
-function AcceptModal({ post, modalHandler, onSubmit }) {
+function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
   const [fbLink, setFbLink] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [newNumber, setNewNumber] = useState(null)
@@ -39,9 +38,8 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
   const id = post ? post.id : -1
   const handleAccept = async () => {
     setLoading(true)
-    const acceptedPost = await acceptPost({
-      id
-    })
+
+    const acceptedPost = await onAccept(id)
 
     setNewNumber(acceptedPost.number)
     setLoading(false)
@@ -57,7 +55,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
 
     setLoading(true)
 
-    await onSubmit(
+    await onUpdateFbLink(
       {
         id,
         fbLink
@@ -179,7 +177,8 @@ AcceptModal.propTypes = {
     history: PropTypes.array.isRequired
   }),
   modalHandler: PropTypes.func,
-  onSubmit: PropTypes.func
+  onAccept: PropTypes.func,
+  onUpdateFbLink: PropTypes.func
 }
 
 export default AcceptModal
