@@ -44,7 +44,6 @@ function Card({ post, isManage = false, more = false }) {
               {v}
               <a
                 style={{
-                  color: '#4caf50',
                   cursor: 'pointer',
                   fontWeight: '500',
                   fontFamily: 'Spoqa Han Sans, sans-serif'

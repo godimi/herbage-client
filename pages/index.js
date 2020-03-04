@@ -15,6 +15,7 @@ import {
 import useInfiniteScroll from '../src/hooks/useInfiniteScroll'
 import axios from '../src/api/axios'
 import ManageModal from '../src/components/modals/ManageModal'
+import Navigator from '../src/components/Navigator'
 
 export default function Index({ postData, verifier }) {
   const [posts, setPosts] = useState(postData.posts.slice())
@@ -123,18 +124,14 @@ export default function Index({ postData, verifier }) {
           content="https://i.postimg.cc/wBJRKDty/bamboocover.jpg"
         />
       </Head>
-      <div className="nav">
-        <h1>
-          디<span style={{ fontSize: 14 }}>미고</span>대
-          <span style={{ fontSize: 14 }}>나무</span>숲
-        </h1>
+      <Navigator>
         <div className="nav-items">
           <a onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? '밝은' : '어두운'} 테마
           </a>
           <a onClick={() => handleModal('delete', {})}>제보 관리</a>
         </div>
-      </div>
+      </Navigator>
       <Form onSubmit={handleSubmit} verifier={verifier} />
       {hash && (
         <div className="hash card">
@@ -150,28 +147,11 @@ export default function Index({ postData, verifier }) {
         <div className="info">마지막 글입니다.</div>
       )}
       <style jsx>{`
-        h1 {
-          display: inline;
-          margin: 0;
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
-
-        h1 > span {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
-
-        .nav {
-          font-family: 'Spoqa Han Sans', sans-serif;
-          margin-bottom: 2rem;
-          display: flex;
-          justify-content: space-between;
-        }
-
         .nav-items {
           margin: auto 0;
         }
 
-        .nav a {
+        .nav-items a {
           font-size: 18px;
           font-family: 'Spoqa Han Sans', sans-serif;
           text-decoration: none;
@@ -180,11 +160,7 @@ export default function Index({ postData, verifier }) {
         }
 
         @media screen and (max-width: 600px) {
-          h1 {
-            font-size: 1.8em;
-          }
-
-          .nav a {
+          .nav-items a {
             font-size: 14px;
             margin-left: 1rem;
           }
