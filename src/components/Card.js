@@ -4,8 +4,8 @@ import format from 'date-fns/format'
 import { FiArrowLeft } from 'react-icons/fi'
 import timeText from '../utils/timeText'
 
-function Card({ post, isManage = false }) {
-  const [showMore, setShowMore] = useState(false)
+function Card({ post, isManage = false, more = false }) {
+  const [showMore, setShowMore] = useState(more)
   const isLong =
     post.content.length > 250 || post.content.split('\n').length > 3
 
@@ -124,7 +124,8 @@ Card.propTypes = {
     fbLink: PropTypes.string,
     createdAt: PropTypes.number
   }),
-  isManage: PropTypes.bool
+  isManage: PropTypes.bool,
+  more: PropTypes.bool
 }
 
 export default Card

@@ -23,7 +23,7 @@ function Post({ post, err }) {
             />
             <meta property="og:description" content={post.content} />
           </Head>
-          <Card post={post} />
+          <Card post={post} more />
         </>
       ) : (
         <div className="card info-nf">존재하지 않는 글입니다.</div>
