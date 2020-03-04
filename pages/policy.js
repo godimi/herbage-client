@@ -1,5 +1,5 @@
-import Router from 'next/router'
 import Head from 'next/head'
+import Navigator from '../src/components/Navigator'
 
 function Policy() {
   return (
@@ -11,12 +11,7 @@ function Policy() {
           content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
         />
       </Head>
-      <div className="nav">
-        <h1 onClick={() => Router.push('/')}>
-          디<span style={{ fontSize: 14 }}>미고</span>대
-          <span style={{ fontSize: 14 }}>나무</span>숲
-        </h1>
-      </div>
+      <Navigator />
       <div className="policy card">
         <h2>한국디지털미디어고등학교 대나무숲 시행 규칙</h2>
         <strong>제 1조 (목적)</strong>
@@ -131,12 +126,6 @@ function Policy() {
           font-family: 'Spoqa Han Sans', sans-serif;
         }
 
-        h1 {
-          display: inline;
-          margin: 0;
-          cursor: pointer;
-        }
-
         h2 {
           margin: 0 0 1rem 0;
         }
@@ -150,12 +139,6 @@ function Policy() {
 
         li ol {
           padding-inline-start: 1rem;
-        }
-
-        .nav {
-          margin-bottom: 2rem;
-          display: flex;
-          justify-content: space-between;
         }
 
         .policy {
