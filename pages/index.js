@@ -118,6 +118,10 @@ export default function Index({ postData, verifier }) {
           property="og:description"
           content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
         />
+        <meta
+          property="og:image"
+          content="https://i.postimg.cc/wBJRKDty/bamboocover.jpg"
+        />
       </Head>
       <div className="nav">
         <h1>
