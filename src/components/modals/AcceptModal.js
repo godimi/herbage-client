@@ -8,7 +8,6 @@ import BaseModal from './BaseModal'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import format from 'date-fns/format'
 import timeText from '../../utils/timeText'
-import { acceptPost } from '../../api/posts'
 
 const spinAnimation = css.resolve`
   .spin {
@@ -26,7 +25,7 @@ const spinAnimation = css.resolve`
   }
 `
 
-function AcceptModal({ post, modalHandler, onSubmit }) {
+function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
   const [fbLink, setFbLink] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [newNumber, setNewNumber] = useState(null)
@@ -39,16 +38,14 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
   const id = post ? post.id : -1
   const handleAccept = async () => {
     setLoading(true)
-    const acceptedPost = await acceptPost({
-      id,
-      fbLink
-    })
+
+    const acceptedPost = await onAccept(id)
 
     setNewNumber(acceptedPost.number)
     setLoading(false)
   }
 
-  const handleUpdateNumber = async e => {
+  const handleUpdateFbLink = async e => {
     e.preventDefault()
 
     if (fbLink.length === 0) {
@@ -58,7 +55,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
 
     setLoading(true)
 
-    await onSubmit(
+    await onUpdateFbLink(
       {
         id,
         fbLink
@@ -71,7 +68,7 @@ function AcceptModal({ post, modalHandler, onSubmit }) {
 
   return (
     <BaseModal modalName="accept" content={post} modalHandler={modalHandler}>
-      <form onSubmit={handleUpdateNumber}>
+      <form onSubmit={handleUpdateFbLink}>
         <p>
           <strong>
             * 특별한 이유가 없다면 반드시 시간 순서대로 제보를 처리하세요.
@@ -180,7 +177,8 @@ AcceptModal.propTypes = {
     history: PropTypes.array.isRequired
   }),
   modalHandler: PropTypes.func,
-  onSubmit: PropTypes.func
+  onAccept: PropTypes.func,
+  onUpdateFbLink: PropTypes.func
 }
 
 export default AcceptModal
