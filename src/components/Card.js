@@ -13,7 +13,7 @@ function Card({ post, isManage = false }) {
     <div className="card">
       <h3>
         <a href={post.fbLink} target="_blank">
-          {post.number || '?'}번째 코드
+          #{post.number || '?'}번째 코드
         </a>
         <span className="check-fb">
           <FiArrowLeft style={{ verticalAlign: 'middle' }} /> 페이스북에서 확인
