@@ -43,7 +43,7 @@ function Form({ onSubmit, verifier }) {
     setTag('')
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (verifier.error) {
@@ -67,7 +67,7 @@ function Form({ onSubmit, verifier }) {
     recaptchaRef.current.execute()
   }
 
-  const onCaptchaResponse = async captcha => {
+  const onCaptchaResponse = async (captcha) => {
     await onSubmit(
       {
         content,
@@ -82,7 +82,7 @@ function Form({ onSubmit, verifier }) {
     setLoading(false)
   }
 
-  const preventSubmitOnEnter = e => {
+  const preventSubmitOnEnter = (e) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       e.preventDefault()
     }
@@ -99,21 +99,22 @@ function Form({ onSubmit, verifier }) {
       ) : (
         <>
           <div className="flex">
-            <label htmlFor="title-input">제목 (선택)</label>
+            <label htmlFor="title-input">제목</label>
             <input
               id="title-input"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               onKeyPress={preventSubmitOnEnter}
               style={{ width: '25%', minWidth: 250 }}
               type="text"
-              placeholder="제목 (선택)"
+              placeholder="제목"
+              required
             />
             <label htmlFor="cert-input">학생 인증</label>
             <input
               id="cert-input"
               value={answer}
-              onChange={e => setAnswer(e.target.value)}
+              onChange={(e) => setAnswer(e.target.value)}
               onKeyPress={preventSubmitOnEnter}
               style={{ width: '40%', minWidth: 250 }}
               type="text"
@@ -124,7 +125,7 @@ function Form({ onSubmit, verifier }) {
             <select
               id="tag-select"
               value={tag}
-              onChange={e => setTag(e.target.value)}
+              onChange={(e) => setTag(e.target.value)}
               options={tags}
               required
             >
@@ -166,14 +167,14 @@ function Form({ onSubmit, verifier }) {
             )}
           </button>
           <a href="/policy" style={{ marginLeft: '1rem' }}>
-            게시 규정 >
+            게시 규정 &gt;
           </a>
           <ReCAPTCHA
             ref={recaptchaRef}
             sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
             size="invisible"
             hl="ko"
-            onChange={token => onCaptchaResponse(token)}
+            onChange={(token) => onCaptchaResponse(token)}
           />
         </>
       )}
