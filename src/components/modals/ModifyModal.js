@@ -24,8 +24,8 @@ const spinAnimation = css.resolve`
 `
 
 function ModifyModal({ post, modalHandler, onSubmit }) {
-  const [title, setTitle] = useState(post.title)
-  const [content, setContent] = useState(post.content)
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
   const [isLoading, setLoading] = useState(false)
 
   const reset = () => {
@@ -52,6 +52,7 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
   }
 
   useEffect(() => {
+    if (!post) return
     setTitle(post.title)
     setContent([post.content])
   }, [post])
