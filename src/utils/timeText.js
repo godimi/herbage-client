@@ -1,4 +1,4 @@
-const timeText = time => {
+const timeText = (time) => {
   let hours = new Date(time).getUTCHours() + 9
   if (hours > 23) hours -= 24
   let text

@@ -40,7 +40,7 @@ function Policy() {
               <li>9. 분실물 회수를 목적으로 하는 경우</li>
               <li>10. 구인/구직을 목적으로 하는 경우</li>
               <li>11. 정치/종교 등 논란을 불러일으킬 여지가 있는 경우</li>
-              <li>12. 타 고등학교 또는 학교를 비방, 비판하는 경우</li>
+              <li>12. 타 고등학교 또는 학교를 비방, 비난하는 경우</li>
               <li>13. 지나치게 길거나 지나치게 짧은 경우</li>
               <li>14. 제보 반려 사유를 묻는 경우</li>
               <li>
@@ -121,35 +121,37 @@ function Policy() {
           </li>
         </ol>
       </div>
-      <style jsx>{`
-        * {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
+      <style jsx>
+        {`
+          * {
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
 
-        h2 {
-          margin: 0 0 1rem 0;
-        }
+          h2 {
+            margin: 0 0 1rem 0;
+          }
 
-        ol {
-          list-style: none;
-          padding-inline-start: 0;
-          margin-top: 0.5rem;
-          margin-bottom: 0.5rem;
-        }
+          ol {
+            list-style: none;
+            padding-inline-start: 0;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+          }
 
-        li ol {
-          padding-inline-start: 1rem;
-        }
+          li ol {
+            padding-inline-start: 1rem;
+          }
 
-        .policy {
-          padding: 2rem;
-          border-radius: 7.5px;
-        }
+          .policy {
+            padding: 2rem;
+            border-radius: 7.5px;
+          }
 
-        .intro {
-          color: #8e8e8e;
-        }
-      `}</style>
+          .intro {
+            color: #8e8e8e;
+          }
+        `}
+      </style>
     </>
   )
 }

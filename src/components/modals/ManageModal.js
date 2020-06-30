@@ -33,7 +33,7 @@ function ManageModal({ content, modalHandler, onSubmit }) {
     setHash('')
     setPost(null)
   }
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (hash.length === 0) {
@@ -65,7 +65,7 @@ function ManageModal({ content, modalHandler, onSubmit }) {
             <input
               id="link-input"
               value={hash}
-              onChange={e => setHash(e.target.value)}
+              onChange={(e) => setHash(e.target.value)}
               style={{ width: '80%', minWidth: 250 }}
               type="text"
               placeholder="제보 시 표시된 해시값을 입력하세요"
@@ -102,37 +102,39 @@ function ManageModal({ content, modalHandler, onSubmit }) {
             )}
           </button>
         )}
-        <style jsx>{`
-          * {
-            font-family: 'Spoqa Han Sans', sans-serif;
-          }
+        <style jsx>
+          {`
+            * {
+              font-family: 'Spoqa Han Sans', sans-serif;
+            }
 
-          .error {
-            text-align: center;
-            font-size: 14px;
-          }
+            .error {
+              text-align: center;
+              font-size: 14px;
+            }
 
-          .info {
-            margin-bottom: 1rem;
-          }
+            .info {
+              margin-bottom: 1rem;
+            }
 
-          .info--warn {
-            color: #f44336;
-          }
+            .info--warn {
+              color: #f44336;
+            }
 
-          input {
-            display: inline-block !important;
-          }
+            input {
+              display: inline-block !important;
+            }
 
-          label {
-            display: none;
-          }
+            label {
+              display: none;
+            }
 
-          select {
-            display: inline-block;
-            text-align: center;
-          }
-        `}</style>
+            select {
+              display: inline-block;
+              text-align: center;
+            }
+          `}
+        </style>
       </form>
     </BaseModal>
   )

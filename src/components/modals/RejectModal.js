@@ -28,7 +28,7 @@ function RejectModal({ post, modalHandler, onSubmit }) {
 
   const reset = () => setReason('')
   const id = post ? post.id : -1
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (reason.length === 0) {
@@ -53,7 +53,7 @@ function RejectModal({ post, modalHandler, onSubmit }) {
         <input
           id="reason-input"
           value={reason}
-          onChange={e => setReason(e.target.value)}
+          onChange={(e) => setReason(e.target.value)}
           style={{ width: '80%', minWidth: 250 }}
           type="text"
           placeholder="거부 사유를 입력하세요"
@@ -66,30 +66,32 @@ function RejectModal({ post, modalHandler, onSubmit }) {
             <FiLoader className={classNames('spin', spinAnimation.className)} />
           )}
         </button>
-        <style jsx>{`
-          * {
-            font-family: 'Spoqa Han Sans', sans-serif;
-          }
+        <style jsx>
+          {`
+            * {
+              font-family: 'Spoqa Han Sans', sans-serif;
+            }
 
-          .error {
-            text-align: center;
-            font-size: 14px;
-          }
+            .error {
+              text-align: center;
+              font-size: 14px;
+            }
 
-          input {
-            display: inline-block !important;
-          }
+            input {
+              display: inline-block !important;
+            }
 
-          label {
-            display: none;
-          }
+            label {
+              display: none;
+            }
 
-          select {
-            display: inline-block;
-            text-align: center;
-            text-align-center: center;
-          }
-        `}</style>
+            select {
+              display: inline-block;
+              text-align: center;
+              text-align-center: center;
+            }
+          `}
+        </style>
       </form>
     </BaseModal>
   )

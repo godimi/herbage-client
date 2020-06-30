@@ -62,18 +62,20 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <input
           value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          onChange={(e) => setInputValue(e.target.value)}
           type="password"
           placeholder="입력하세요"
         />
         <button type="submit">{isLoading ? '인증 중...' : '로그인'}</button>
       </form>
-      <style jsx>{`
-        form {
-          padding: 2rem;
-          border-radius: 7.5px;
-        }
-      `}</style>
+      <style jsx>
+        {`
+          form {
+            padding: 2rem;
+            border-radius: 7.5px;
+          }
+        `}
+      </style>
     </>
   )
 }
@@ -116,14 +118,14 @@ function Admin({ postData, userData }) {
 
   useEffect(() => {
     const token = cookies.token
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   }, [])
 
   useEffect(() => {
     fetch()
   }, [statusFilter])
 
-  const filter = async status => {
+  const filter = async (status) => {
     setPosts([])
     setCursor()
     setStatusFilter(status)
@@ -138,7 +140,7 @@ function Admin({ postData, userData }) {
   }
 
   const logout = () => {
-    delete axios.defaults.headers.common['Authorization']
+    delete axios.defaults.headers.common.Authorization
     removeCookie('token', {
       path: '/'
     })
@@ -146,13 +148,13 @@ function Admin({ postData, userData }) {
   }
 
   const updatePosts = (id, data) => {
-    const updatedPosts = posts.map(post => {
+    const updatedPosts = posts.map((post) => {
       return post.id === id ? data : post
     })
     setPosts(updatedPosts)
   }
 
-  const handleError = err => {
+  const handleError = (err) => {
     if (!err.response) {
       toast.error('네트워크에 문제가 있습니다.')
       return
@@ -171,7 +173,7 @@ function Admin({ postData, userData }) {
     }
   }
 
-  const handleAccept = async id => {
+  const handleAccept = async (id) => {
     try {
       const acceptedPost = await acceptPost(id)
       updatePosts(id, acceptedPost)
@@ -218,10 +220,10 @@ function Admin({ postData, userData }) {
     }
   }
 
-  const handleDelete = async post => {
+  const handleDelete = async (post) => {
     try {
       await deletePost(post._id)
-      const newPosts = posts.filter(p => {
+      const newPosts = posts.filter((p) => {
         return post._id !== p._id
       })
       setPosts(newPosts)
@@ -239,7 +241,7 @@ function Admin({ postData, userData }) {
           <a onClick={logout}>로그아웃</a>
         </div>
       </div>
-      <div onChange={event => filter(event.target.value)}>
+      <div onChange={(event) => filter(event.target.value)}>
         <input type="radio" name="status-filter" value={ACCEPTED} />
         승인
         <input
@@ -270,68 +272,70 @@ function Admin({ postData, userData }) {
         <div className="info">마지막 글입니다.</div>
       )}
       {!postData.error && isFetching && <div className="info">로딩 중...</div>}
-      <style jsx>{`
-        h1 {
-          display: inline;
-          margin: 0;
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
-
-        h1 > span {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
-
-        .nav {
-          font-family: 'Spoqa Han Sans', sans-serif;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .nav-items {
-          margin: auto 0;
-        }
-
-        .nav a {
-          font-size: 18px;
-          font-family: 'Spoqa Han Sans', sans-serif;
-          text-decoration: none;
-          margin-left: 2rem;
-          cursor: pointer;
-        }
-
-        @media screen and (max-width: 600px) {
+      <style jsx>
+        {`
           h1 {
-            font-size: 1.8em;
+            display: inline;
+            margin: 0;
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
+
+          h1 > span {
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
+
+          .nav {
+            font-family: 'Spoqa Han Sans', sans-serif;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .nav-items {
+            margin: auto 0;
           }
 
           .nav a {
-            font-size: 14px;
-            margin-left: 1rem;
+            font-size: 18px;
+            font-family: 'Spoqa Han Sans', sans-serif;
+            text-decoration: none;
+            margin-left: 2rem;
+            cursor: pointer;
           }
-        }
 
-        button {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
+          @media screen and (max-width: 600px) {
+            h1 {
+              font-size: 1.8em;
+            }
 
-        .info {
-          text-align: center;
-          font-size: 14px;
-          font-family: 'Spoqa Han Sans', sans-serif;
-          color: #41adff;
-        }
+            .nav a {
+              font-size: 14px;
+              margin-left: 1rem;
+            }
+          }
 
-        .info.info--error {
-          color: #eb4034;
-        }
+          button {
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
 
-        .icon-filter {
-          cursor: pointer;
-          float: right;
-          opacity: 0.7;
-          font-size: x-large;
-        }
-      `}</style>
+          .info {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Spoqa Han Sans', sans-serif;
+            color: #41adff;
+          }
+
+          .info.info--error {
+            color: #eb4034;
+          }
+
+          .icon-filter {
+            cursor: pointer;
+            float: right;
+            opacity: 0.7;
+            font-size: x-large;
+          }
+        `}
+      </style>
       {modal.accept && (
         <AcceptModal
           post={modal.accept}
@@ -371,7 +375,7 @@ function A1P4CA({ isLoginPage, postData, userData }) {
   )
 }
 
-A1P4CA.getInitialProps = async ctx => {
+A1P4CA.getInitialProps = async (ctx) => {
   const cookies = new Cookie(ctx.req && ctx.req.headers.cookie)
   const token = cookies.get('token')
 
@@ -382,7 +386,7 @@ A1P4CA.getInitialProps = async ctx => {
     }
   }
 
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 
   try {
     const postData = await getPosts({

@@ -12,7 +12,7 @@ function Card({ post, isManage = false, more = false }) {
   return (
     <div className="card">
       <h3>
-        <a href={post.fbLink} target="_blank">
+        <a href={post.fbLink} target="_blank" rel="noreferrer">
           #{post.number || '?'}번째 코드
         </a>
         <span className="check-fb">
@@ -58,57 +58,59 @@ function Card({ post, isManage = false, more = false }) {
           )
         )}
       {post.tag && <div className="tag">{post.tag}</div>}
-      <style jsx>{`
-        .card {
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-          padding: ${isManage ? '1rem' : '2rem'};
-          border-radius: 7.5px;
-          border: ${isManage ? '1px solid' : 'none'};
-        }
+      <style jsx>
+        {`
+          .card {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: ${isManage ? '1rem' : '2rem'};
+            border-radius: 7.5px;
+            border: ${isManage ? '1px solid' : 'none'};
+          }
 
-        .card * {
-          font-family: 'Iropke Batang', serif;
-        }
+          .card * {
+            font-family: 'Iropke Batang', serif;
+          }
 
-        .tag {
-          display: inline-block;
-          padding: 0.5rem 1rem;
-          border-radius: 7.5px;
-          font-size: 14px;
-        }
+          .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 7.5px;
+            font-size: 14px;
+          }
 
-        h3 {
-          display: flex;
-          align-items: center;
-        }
+          h3 {
+            display: flex;
+            align-items: center;
+          }
 
-        .check-fb {
-          opacity: 0;
-          color: #41adff;
-          font-family: 'Spoqa Han Sans', sans-serif !important;
-          font-size: 14px;
-          font-weight: 500;
-          margin-left: 1rem;
-          transition: 0.25s opacity;
-        }
+          .check-fb {
+            opacity: 0;
+            color: #41adff;
+            font-family: 'Spoqa Han Sans', sans-serif !important;
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 1rem;
+            transition: 0.25s opacity;
+          }
 
-        h3:hover .check-fb {
-          opacity: 1;
-        }
+          h3:hover .check-fb {
+            opacity: 1;
+          }
 
-        h4 {
-          font-size: 18px;
-          font-weight: 600;
-        }
+          h4 {
+            font-size: 18px;
+            font-weight: 600;
+          }
 
-        p {
-          font-size: 18px;
-          line-height: 1.825;
-          overflow-wrap: break-word;
-          -webkit-font-smoothing: antialiased;
-        }
-      `}</style>
+          p {
+            font-size: 18px;
+            line-height: 1.825;
+            overflow-wrap: break-word;
+            -webkit-font-smoothing: antialiased;
+          }
+        `}
+      </style>
     </div>
   )
 }
