@@ -54,7 +54,7 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
   useEffect(() => {
     if (!post) return
     setTitle(post.title)
-    setContent([post.content])
+    setContent(post.content)
   }, [post])
 
   return (
