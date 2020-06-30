@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { FiLoader } from 'react-icons/fi'
 import classNames from 'classnames'
@@ -24,13 +24,13 @@ const spinAnimation = css.resolve`
 `
 
 function ModifyModal({ post, modalHandler, onSubmit }) {
-  const [content, setContent] = useState('')
+  const [title, setTitle] = useState(post.title)
+  const [content, setContent] = useState(post.content)
   const [isLoading, setLoading] = useState(false)
-  const [isModifying, setModifying] = useState(false)
 
   const reset = () => {
     setContent('')
-    setModifying(false)
+    setTitle('')
   }
 
   const id = post ? post.id : -1
@@ -43,24 +43,36 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
     }
 
     setLoading(true)
-    await onSubmit({ id, content }, reset)
+    await onSubmit({ id, title, content }, reset)
     setLoading(false)
   }
   const handleClose = (name) => {
     reset()
     modalHandler(name)
   }
+
+  useEffect(() => {
+    setTitle(post.title)
+    setContent([post.content])
+  }, [post])
+
   return (
     <BaseModal modalName="modify" content={post} modalHandler={handleClose}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="content-textarea">내용</label>
+        <input
+          id="title-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          type="text"
+          placeholder="제목 (최대 20자)"
+          maxLength="20"
+          required
+        />
         <TextArea
           id="content-textarea"
-          value={isModifying ? content : post ? post.content : ''}
-          onUpdate={(c) => {
-            setContent(c)
-            if (!isModifying) setModifying(true)
-          }}
+          value={content}
+          onUpdate={(c) => setContent(c)}
           placeholder="내용을 입력하세요"
           required
         />
