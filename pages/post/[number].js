@@ -21,7 +21,7 @@ function Post({ post }) {
           <Card post={post} more />
           <ins
             className="adsbygoogle"
-            style="display:block"
+            style={{ display: 'block' }}
             data-ad-client="ca-pub-4039783749152993"
             data-ad-slot="1402864478"
             data-ad-format="auto"
