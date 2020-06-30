@@ -4,8 +4,8 @@ import format from 'date-fns/format'
 import { FiArrowLeft } from 'react-icons/fi'
 import timeText from '../utils/timeText'
 
-function Card({ post, isManage = false }) {
-  const [showMore, setShowMore] = useState(false)
+function Card({ post, isManage = false, more = false }) {
+  const [showMore, setShowMore] = useState(more)
   const isLong =
     post.content.length > 250 || post.content.split('\n').length > 3
 
@@ -13,7 +13,7 @@ function Card({ post, isManage = false }) {
     <div className="card">
       <h3>
         <a href={post.fbLink} target="_blank">
-          {post.number || '?'}번째 코드
+          #{post.number || '?'}번째 코드
         </a>
         <span className="check-fb">
           <FiArrowLeft style={{ verticalAlign: 'middle' }} /> 페이스북에서 확인
@@ -44,7 +44,6 @@ function Card({ post, isManage = false }) {
               {v}
               <a
                 style={{
-                  color: '#4caf50',
                   cursor: 'pointer',
                   fontWeight: '500',
                   fontFamily: 'Spoqa Han Sans, sans-serif'
@@ -106,6 +105,7 @@ function Card({ post, isManage = false }) {
         p {
           font-size: 18px;
           line-height: 1.825;
+          overflow-wrap: break-word;
           -webkit-font-smoothing: antialiased;
         }
       `}</style>
@@ -123,7 +123,8 @@ Card.propTypes = {
     fbLink: PropTypes.string,
     createdAt: PropTypes.number
   }),
-  isManage: PropTypes.bool
+  isManage: PropTypes.bool,
+  more: PropTypes.bool
 }
 
 export default Card

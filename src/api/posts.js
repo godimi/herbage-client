@@ -29,7 +29,14 @@ export async function getPosts({
   }
 }
 
-export async function createPost({ title, content, answer, verifier, tag }) {
+export async function createPost({
+  title,
+  content,
+  answer,
+  verifier,
+  tag,
+  captcha
+}) {
   return (await axios.post('/posts', {
     title,
     content,
@@ -37,18 +44,22 @@ export async function createPost({ title, content, answer, verifier, tag }) {
     verifier: {
       id: verifier.id,
       answer: answer
-    }
+    },
+    captcha
   })).data
 }
 
-export async function getPost(hash) {
-  return (await axios.get(`/posts/${hash}`)).data
+export async function getPost(number) {
+  return (await axios.get(`/posts/${number}`)).data
 }
 
-export async function acceptPost({ id, fbLink }) {
+export async function getPostByHash(hash) {
+  return (await axios.get(`/posts/hash/${hash}`)).data
+}
+
+export async function acceptPost(id) {
   return (await axios.patch(`/posts/${id}`, {
-    status: 'ACCEPTED',
-    fbLink
+    status: 'ACCEPTED'
   })).data
 }
 
@@ -65,8 +76,4 @@ export async function modifyPost(post) {
 
 export async function deletePost(arg) {
   await axios.delete(`/posts/${arg}`)
-}
-
-export async function getNewNumber() {
-  return (await axios.get('/posts/number')).data.newNumber
 }

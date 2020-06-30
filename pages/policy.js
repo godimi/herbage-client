@@ -1,14 +1,17 @@
-import Router from 'next/router'
+import Head from 'next/head'
+import Navigator from '../src/components/Navigator'
 
 function Policy() {
   return (
     <>
-      <div className="nav">
-        <h1 onClick={() => Router.push('/')}>
-          디<span style={{ fontSize: 14 }}>미고</span>대
-          <span style={{ fontSize: 14 }}>나무</span>숲
-        </h1>
-      </div>
+      <Head>
+        <meta property="og:title" content="디대숲" />
+        <meta
+          property="og:description"
+          content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
+        />
+      </Head>
+      <Navigator />
       <div className="policy card">
         <h2>한국디지털미디어고등학교 대나무숲 시행 규칙</h2>
         <strong>제 1조 (목적)</strong>
@@ -92,9 +95,8 @@ function Policy() {
         <p>
           ① 특정 이슈로 대나무숲이 과열되는 조짐을 보이는 경우 관리자들이
           자체적인 판단에 따라 해당 주제에 대한 제보 업로드를 일시적으로
-          보류하는 시스템으로, 관리자의 판단 하에 공지 없이 발동할 수 있다.
-          특정 이슈에 관한 글은 일정 시간이 지난 후 하나의 게시글로 묶여
-          업로드된다.
+          보류하는 시스템으로, 관리자의 판단 하에 공지 없이 발동할 수 있다. 특정
+          이슈에 관한 글은 일정 시간이 지난 후 하나의 게시글로 묶여 업로드된다.
         </p>
         <strong>제 5조 (댓글 삭제에 관한 규칙)</strong>
         <ol>
@@ -124,12 +126,6 @@ function Policy() {
           font-family: 'Spoqa Han Sans', sans-serif;
         }
 
-        h1 {
-          display: inline;
-          margin: 0;
-          cursor: pointer;
-        }
-
         h2 {
           margin: 0 0 1rem 0;
         }
@@ -143,12 +139,6 @@ function Policy() {
 
         li ol {
           padding-inline-start: 1rem;
-        }
-
-        .nav {
-          margin-bottom: 2rem;
-          display: flex;
-          justify-content: space-between;
         }
 
         .policy {

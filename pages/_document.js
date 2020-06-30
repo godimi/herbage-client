@@ -10,11 +10,7 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta property="og:title" content="디대숲" />
-          <meta
-            property="og:description"
-            content="디미고 익명 게시판, 한국디지털미디어고등학교 대나무숲"
-          />
+          <meta property="fb:pages" content="1816017501965810" />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
@@ -29,6 +25,11 @@ class CustomDocument extends Document {
             gtag('config', 'UA-128564038-3');
           `
             }}
+          />
+          <script
+            data-ad-client="ca-pub-4039783749152993"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
           <link
             rel="preload"

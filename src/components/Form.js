@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import css from 'styled-jsx/css'
 import { FiLoader } from 'react-icons/fi'
@@ -6,8 +6,10 @@ import classNames from 'classnames'
 import { toast } from 'react-toastify'
 import { tags } from '../utils/post-tags'
 import TextArea from './TextArea'
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
-import { verifyCaptcha } from '../api/recaptcha'
+import ReCAPTCHA from 'react-google-recaptcha'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const spinAnimation = css.resolve`
   .spin {
@@ -32,7 +34,7 @@ function Form({ onSubmit, verifier }) {
   const [tag, setTag] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [submitChecked, setSubmitChecked] = useState(false)
-  const { executeRecaptcha } = useGoogleReCaptcha()
+  const recaptchaRef = useRef(null)
 
   const reset = () => {
     setTitle('')
@@ -41,7 +43,7 @@ function Form({ onSubmit, verifier }) {
     setTag('')
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (verifier.error) {
@@ -62,28 +64,25 @@ function Form({ onSubmit, verifier }) {
 
     setLoading(true)
 
-    const token = await executeRecaptcha('submit')
-    const { success } = await verifyCaptcha(token)
-    if (!success) {
-      setLoading(false)
-      toast.error('캡차가 잘못되었습니다.')
-      return
-    }
+    recaptchaRef.current.execute()
+  }
 
+  const onCaptchaResponse = async (captcha) => {
     await onSubmit(
       {
         content,
         title,
         verifier,
         answer,
-        tag
+        tag,
+        captcha
       },
       reset
     )
     setLoading(false)
   }
 
-  const preventSubmitOnEnter = e => {
+  const preventSubmitOnEnter = (e) => {
     if (e.key === 'Enter' || e.keyCode === 13) {
       e.preventDefault()
     }
@@ -100,21 +99,22 @@ function Form({ onSubmit, verifier }) {
       ) : (
         <>
           <div className="flex">
-            <label htmlFor="title-input">제목 (선택)</label>
+            <label htmlFor="title-input">제목</label>
             <input
               id="title-input"
               value={title}
-              onChange={e => setTitle(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               onKeyPress={preventSubmitOnEnter}
               style={{ width: '25%', minWidth: 250 }}
               type="text"
-              placeholder="제목 (선택)"
+              placeholder="제목"
+              required
             />
             <label htmlFor="cert-input">학생 인증</label>
             <input
               id="cert-input"
               value={answer}
-              onChange={e => setAnswer(e.target.value)}
+              onChange={(e) => setAnswer(e.target.value)}
               onKeyPress={preventSubmitOnEnter}
               style={{ width: '40%', minWidth: 250 }}
               type="text"
@@ -125,7 +125,7 @@ function Form({ onSubmit, verifier }) {
             <select
               id="tag-select"
               value={tag}
-              onChange={e => setTag(e.target.value)}
+              onChange={(e) => setTag(e.target.value)}
               options={tags}
               required
             >
@@ -147,6 +147,12 @@ function Form({ onSubmit, verifier }) {
             placeholder="타인을 향한 욕설 및 비방은 징계 대상입니다. (최대 3000자)"
             required
           />
+          <div className="recaptcha-policy">
+            이 사이트는 reCAPTCHA에 의해 보호되며 Google{' '}
+            <a href="https://policies.google.com/privacy">개인정보처리방침</a>{' '}
+            및 <a href="https://policies.google.com/terms">서비스 약관</a>이
+            적용됩니다.
+          </div>
           <button type="submit">
             {!isLoading ? (
               submitChecked ? (
@@ -161,8 +167,15 @@ function Form({ onSubmit, verifier }) {
             )}
           </button>
           <a href="/policy" style={{ marginLeft: '1rem' }}>
-            게시 규정 >
+            게시 규정 &gt;
           </a>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={publicRuntimeConfig.RECAPTCHA_KEY}
+            size="invisible"
+            hl="ko"
+            onChange={(token) => onCaptchaResponse(token)}
+          />
         </>
       )}
       {spinAnimation.styles}
@@ -219,6 +232,11 @@ function Form({ onSubmit, verifier }) {
           display: inline-block;
           text-align: center;
           margin: 0 0 6px 0;
+        }
+
+        .recaptcha-policy {
+          font-size: 0.7rem;
+          padding-bottom: 10px;
         }
       `}</style>
     </form>

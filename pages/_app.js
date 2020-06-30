@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify'
 import Cookie from 'universal-cookie'
 import 'react-toastify/dist/ReactToastify.css'
 import ThemeContext from '../src/contexts/ThemeContext'
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 
 function ThemeWrapper({ children }) {
   const [cookies, setCookie] = useCookies(['theme'])
@@ -35,14 +34,9 @@ function ThemeWrapper({ children }) {
           href={`https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/${theme}.css`}
         />
       </Head>
-      <GoogleReCaptchaProvider
-        reCaptchaKey={process.env.RECAPTCHA_KEY}
-        language="ko"
-      >
-        <ThemeContext.Provider value={[theme, t => setTheme(t)]}>
-          {children}
-        </ThemeContext.Provider>
-      </GoogleReCaptchaProvider>
+      <ThemeContext.Provider value={[theme, t => setTheme(t)]}>
+        {children}
+      </ThemeContext.Provider>
       <ToastContainer />
       <style jsx global>{`
         body {
@@ -71,6 +65,9 @@ function ThemeWrapper({ children }) {
         a,
         strong {
           color: ${isLight ? '#4caf50' : '#0076d1'};
+        }
+        .grecaptcha-badge {
+          visibility: hidden;
         }
       `}</style>
     </>
