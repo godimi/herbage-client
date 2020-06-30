@@ -48,21 +48,23 @@ function AdminCard({ post, modalHandler, deleteHandler }) {
           {deleteChecked ? '한번 더 클릭하세요' : '삭제'}
         </button>
       </div>
-      <style jsx>{`
-        button {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
-        .card {
-          border-radius: 7.5px;
-          padding: 1rem 2rem 2rem 2rem;
-          margin-bottom: 2rem;
-        }
-        .hash,
-        .reason {
-          margin-bottom: 10px;
-          word-break: break-word;
-        }
-      `}</style>
+      <style jsx>
+        {`
+          button {
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
+          .card {
+            border-radius: 7.5px;
+            padding: 1rem 2rem 2rem 2rem;
+            margin-bottom: 2rem;
+          }
+          .hash,
+          .reason {
+            margin-bottom: 10px;
+            word-break: break-word;
+          }
+        `}
+      </style>
     </div>
   )
 }

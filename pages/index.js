@@ -52,10 +52,10 @@ export default function Index({ postData, verifier }) {
     setIsFetching(false)
   }, [posts])
   useEffect(() => {
-    delete axios.defaults.headers.common['Authorization']
+    delete axios.defaults.headers.common.Authorization
   }, [])
 
-  const handleError = err => {
+  const handleError = (err) => {
     if (!err.response) {
       toast.error('네트워크에 문제가 있습니다.')
       return
@@ -138,7 +138,7 @@ export default function Index({ postData, verifier }) {
           {`제보한 글의 수정 및 삭제를 위해서 다음 해시코드를 반드시 저장해주세요.\n${hash}`}
         </div>
       )}
-      {posts && posts.map(post => <Card post={post} key={post.id} />)}
+      {posts && posts.map((post) => <Card post={post} key={post.id} />)}
       {postData.error && (
         <div className="info info--error">{postData.error}</div>
       )}
@@ -146,46 +146,48 @@ export default function Index({ postData, verifier }) {
       {!postData.error && !hasNext && (
         <div className="info">마지막 글입니다.</div>
       )}
-      <style jsx>{`
-        .nav-items {
-          margin: auto 0;
-        }
-
-        .nav-items a {
-          font-size: 18px;
-          font-family: 'Spoqa Han Sans', sans-serif;
-          text-decoration: none;
-          margin-left: 2rem;
-          cursor: pointer;
-        }
-
-        @media screen and (max-width: 600px) {
-          .nav-items a {
-            font-size: 14px;
-            margin-left: 1rem;
+      <style jsx>
+        {`
+          .nav-items {
+            margin: auto 0;
           }
-        }
 
-        .info {
-          text-align: center;
-          font-size: 14px;
-          font-family: 'Spoqa Han Sans', sans-serif;
-          color: #41adff;
-        }
+          .nav-items a {
+            font-size: 18px;
+            font-family: 'Spoqa Han Sans', sans-serif;
+            text-decoration: none;
+            margin-left: 2rem;
+            cursor: pointer;
+          }
 
-        .info.info--error {
-          color: #eb4034;
-        }
+          @media screen and (max-width: 600px) {
+            .nav-items a {
+              font-size: 14px;
+              margin-left: 1rem;
+            }
+          }
 
-        .hash {
-          color: #ffab40;
-          margin-top: 1rem;
-          margin-bottom: 1rem;
-          padding: 2rem;
-          border-radius: 7.5px;
-          word-break: break-word;
-        }
-      `}</style>
+          .info {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Spoqa Han Sans', sans-serif;
+            color: #41adff;
+          }
+
+          .info.info--error {
+            color: #eb4034;
+          }
+
+          .hash {
+            color: #ffab40;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: 2rem;
+            border-radius: 7.5px;
+            word-break: break-word;
+          }
+        `}
+      </style>
       <ManageModal
         content={modal.delete}
         modalHandler={handleModal}
@@ -195,8 +197,8 @@ export default function Index({ postData, verifier }) {
   )
 }
 
-Index.getInitialProps = async ctx => {
-  delete axios.defaults.headers.common['Authorization']
+Index.getInitialProps = async (ctx) => {
+  delete axios.defaults.headers.common.Authorization
 
   const fetchPosts = getPosts({ count: 15, safe: true })
   const fetchVerifier = getVerifier({ safe: true })

@@ -37,16 +37,18 @@ export async function createPost({
   tag,
   captcha
 }) {
-  return (await axios.post('/posts', {
-    title,
-    content,
-    tag,
-    verifier: {
-      id: verifier.id,
-      answer: answer
-    },
-    captcha
-  })).data
+  return (
+    await axios.post('/posts', {
+      title,
+      content,
+      tag,
+      verifier: {
+        id: verifier.id,
+        answer: answer
+      },
+      captcha
+    })
+  ).data
 }
 
 export async function getPost(number) {
@@ -58,16 +60,20 @@ export async function getPostByHash(hash) {
 }
 
 export async function acceptPost(id) {
-  return (await axios.patch(`/posts/${id}`, {
-    status: 'ACCEPTED'
-  })).data
+  return (
+    await axios.patch(`/posts/${id}`, {
+      status: 'ACCEPTED'
+    })
+  ).data
 }
 
 export async function rejectPost({ id, reason }) {
-  return (await axios.patch(`/posts/${id}`, {
-    status: 'REJECTED',
-    reason
-  })).data
+  return (
+    await axios.patch(`/posts/${id}`, {
+      status: 'REJECTED',
+      reason
+    })
+  ).data
 }
 
 export async function modifyPost(post) {

@@ -107,7 +107,8 @@ function Form({ onSubmit, verifier }) {
               onKeyPress={preventSubmitOnEnter}
               style={{ width: '25%', minWidth: 250 }}
               type="text"
-              placeholder="제목"
+              placeholder="제목 (최대 20자)"
+              maxLength="20"
               required
             />
             <label htmlFor="cert-input">학생 인증</label>
@@ -179,66 +180,68 @@ function Form({ onSubmit, verifier }) {
         </>
       )}
       {spinAnimation.styles}
-      <style jsx>{`
-        * {
-          font-family: 'Spoqa Han Sans', sans-serif;
-        }
+      <style jsx>
+        {`
+          * {
+            font-family: 'Spoqa Han Sans', sans-serif;
+          }
 
-        form {
-          margin-bottom: 1rem;
-          padding: 2rem;
-          border-radius: 7.5px;
-        }
+          form {
+            margin-bottom: 1rem;
+            padding: 2rem;
+            border-radius: 7.5px;
+          }
 
-        .error {
-          text-align: center;
-          font-size: 14px;
-        }
+          .error {
+            text-align: center;
+            font-size: 14px;
+          }
 
-        .flex {
-          display: flex;
-          width: 100%;
-        }
-
-        input {
-          display: inline-block !important;
-          flex: 3;
-        }
-
-        select {
-          flex: 1;
-        }
-
-        @media screen and (max-width: 600px) {
           .flex {
-            flex-direction: column;
+            display: flex;
+            width: 100%;
           }
 
           input {
-            width: auto !important;
-            margin-right: 0;
+            display: inline-block !important;
+            flex: 3;
           }
 
           select {
-            max-width: 6rem;
+            flex: 1;
           }
-        }
 
-        label {
-          display: none;
-        }
+          @media screen and (max-width: 600px) {
+            .flex {
+              flex-direction: column;
+            }
 
-        select {
-          display: inline-block;
-          text-align: center;
-          margin: 0 0 6px 0;
-        }
+            input {
+              width: auto !important;
+              margin-right: 0;
+            }
 
-        .recaptcha-policy {
-          font-size: 0.7rem;
-          padding-bottom: 10px;
-        }
-      `}</style>
+            select {
+              max-width: 6rem;
+            }
+          }
+
+          label {
+            display: none;
+          }
+
+          select {
+            display: inline-block;
+            text-align: center;
+            margin: 0 0 6px 0;
+          }
+
+          .recaptcha-policy {
+            font-size: 0.7rem;
+            padding-bottom: 10px;
+          }
+        `}
+      </style>
     </form>
   )
 }

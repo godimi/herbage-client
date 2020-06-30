@@ -14,7 +14,7 @@ class CustomDocument extends Document {
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=UA-128564038-3`}
+            src="https://www.googletagmanager.com/gtag/js?id=UA-128564038-3"
           />
           <script
             dangerouslySetInnerHTML={{
@@ -51,14 +51,16 @@ class CustomDocument extends Document {
           <Main />
           <NextScript />
         </body>
-        <style jsx global>{`
-          * {
-            font-family: 'Iropke Batang', serif;
-          }
-          body {
-            transition: background-color 0.5s;
-          }
-        `}</style>
+        <style jsx global>
+          {`
+            * {
+              font-family: 'Iropke Batang', serif;
+            }
+            body {
+              transition: background-color 0.5s;
+            }
+          `}
+        </style>
       </Html>
     )
   }

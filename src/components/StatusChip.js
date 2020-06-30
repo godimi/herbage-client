@@ -23,18 +23,20 @@ function StatusChip({ status }) {
   return (
     <div className="status">
       {statusData.text}
-      <style jsx>{`
-        .status {
-          font-family: 'Spoqa Han Sans', sans-serif;
-          font-size: 18px;
-          display: inline-block;
-          color: ${statusData.color};
-          background-color: ${statusData.bgColor};
-          margin-right: 0.5rem;
-          padding: 0.25rem 1rem;
-          border-radius: 20px;
-        }
-      `}</style>
+      <style jsx>
+        {`
+          .status {
+            font-family: 'Spoqa Han Sans', sans-serif;
+            font-size: 18px;
+            display: inline-block;
+            color: ${statusData.color};
+            background-color: ${statusData.bgColor};
+            margin-right: 0.5rem;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+          }
+        `}
+      </style>
     </div>
   )
 }

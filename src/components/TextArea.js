@@ -1,29 +1,31 @@
 import PropTypes from 'prop-types'
 
 function TextArea({ onUpdate, ...props }) {
-  const handleChange = event => {
+  const handleChange = (event) => {
     onUpdate(event.target.value)
   }
 
   return (
     <>
       <textarea {...props} onChange={handleChange} />
-      <style jsx>{`
-        textarea {
-          height: 5rem;
-          font-size: 16px;
-          transition: 0.25s ease-out;
-          resize: none;
-        }
+      <style jsx>
+        {`
+          textarea {
+            height: 5rem;
+            font-size: 16px;
+            transition: 0.25s ease-out;
+            resize: none;
+          }
 
-        textarea::placeholder {
-          font-size: 16px;
-        }
+          textarea::placeholder {
+            font-size: 16px;
+          }
 
-        textarea:focus {
-          height: 15rem;
-        }
-      `}</style>
+          textarea:focus {
+            height: 15rem;
+          }
+        `}
+      </style>
     </>
   )
 }

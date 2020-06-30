@@ -34,7 +34,7 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
   }
 
   const id = post ? post.id : -1
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (content.length === 0) {
@@ -46,7 +46,7 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
     await onSubmit({ id, content }, reset)
     setLoading(false)
   }
-  const handleClose = name => {
+  const handleClose = (name) => {
     reset()
     modalHandler(name)
   }
@@ -57,7 +57,7 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
         <TextArea
           id="content-textarea"
           value={isModifying ? content : post ? post.content : ''}
-          onUpdate={c => {
+          onUpdate={(c) => {
             setContent(c)
             if (!isModifying) setModifying(true)
           }}
@@ -71,30 +71,32 @@ function ModifyModal({ post, modalHandler, onSubmit }) {
             <FiLoader className={classNames('spin', spinAnimation.className)} />
           )}
         </button>
-        <style jsx>{`
-          * {
-            font-family: 'Spoqa Han Sans', sans-serif;
-          }
+        <style jsx>
+          {`
+            * {
+              font-family: 'Spoqa Han Sans', sans-serif;
+            }
 
-          .error {
-            text-align: center;
-            font-size: 14px;
-          }
+            .error {
+              text-align: center;
+              font-size: 14px;
+            }
 
-          input {
-            display: inline-block !important;
-          }
+            input {
+              display: inline-block !important;
+            }
 
-          label {
-            display: none;
-          }
+            label {
+              display: none;
+            }
 
-          select {
-            display: inline-block;
-            text-align: center;
-            text-align-center: center;
-          }
-        `}</style>
+            select {
+              display: inline-block;
+              text-align: center;
+              text-align-center: center;
+            }
+          `}
+        </style>
       </form>
     </BaseModal>
   )
