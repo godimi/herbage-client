@@ -27,7 +27,7 @@ function Post({ post }) {
             data-ad-format="auto"
             data-full-width-responsive="true"
           />
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
         </>
       ) : (
         <div className="card info-nf">존재하지 않는 글입니다.</div>
