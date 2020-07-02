@@ -66,13 +66,13 @@ function Card({ post, isManage = false, more = false }) {
                     data-ad-client="ca-pub-4039783749152993"
                     data-ad-slot="2555577314"
                   />
-                  <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
                 </>
               )}
             </>
           )
         )}
       {post.tag && <div className="tag">{post.tag}</div>}
+      <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
       <style jsx>
         {`
           .card {
@@ -92,6 +92,7 @@ function Card({ post, isManage = false, more = false }) {
             padding: 0.5rem 1rem;
             border-radius: 7.5px;
             font-size: 14px;
+            margin-top: 1rem;
           }
 
           h3 {
