@@ -56,7 +56,7 @@ function Card({ post, isManage = false, more = false }) {
           ) : (
             <>
               <p key={i}>{v}</p>
-              {array.length > 2 && i === 2 && (
+              {((array.length > 5 && i === 3) || array.length - 1 === i) && (
                 <>
                   <ins
                     className="adsbygoogle"
