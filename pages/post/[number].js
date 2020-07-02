@@ -19,15 +19,14 @@ function Post({ post }) {
             <meta property="og:description" content={post.content} />
           </Head>
           <Card post={post} more />
-          <ins
+          {/* <ins
             className="adsbygoogle"
             style={{ display: 'block' }}
             data-ad-client="ca-pub-4039783749152993"
             data-ad-slot="1402864478"
             data-ad-format="auto"
             data-full-width-responsive="true"
-          />
-          <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
+          /> */}
         </>
       ) : (
         <div className="card info-nf">존재하지 않는 글입니다.</div>
