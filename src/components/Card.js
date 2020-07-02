@@ -54,7 +54,22 @@ function Card({ post, isManage = false, more = false }) {
               </a>
             </p>
           ) : (
-            <p key={i}>{v}</p>
+            <>
+              <p key={i}>{v}</p>
+              {array.length > 2 && i === 2 && (
+                <>
+                  <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block', textAlign: 'center' }}
+                    data-ad-layout="in-article"
+                    data-ad-format="fluid"
+                    data-ad-client="ca-pub-4039783749152993"
+                    data-ad-slot="2555577314"
+                  />
+                  <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
+                </>
+              )}
+            </>
           )
         )}
       {post.tag && <div className="tag">{post.tag}</div>}
