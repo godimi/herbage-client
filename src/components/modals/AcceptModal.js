@@ -92,7 +92,7 @@ function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
             format(post.createdAt, 'yyyy년 MM월 dd일') +
             ` ${timeText(post.createdAt)}\n\n` +
             (post.title ? `<${post.title}>\n\n` : '') +
-            '링크를 클릭해 본문을 확인하세요.' +
+            post.content +
             `\n\n#${(post.tag || '').replace(/\s/g, '')}` +
             `\n\nhttps://bamboo.dimigo.dev/post/${newNumber}`
           }
