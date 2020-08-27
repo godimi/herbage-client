@@ -75,13 +75,20 @@ function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
           </strong>
         </p>
         <p>1. 아래 버튼을 눌러 글을 승인하세요.</p>
-        <button type="button" disabled={isLoading} onClick={handleAccept}>
+        <button
+          type="button"
+          disabled={isLoading || newNumber}
+          onClick={handleAccept}
+        >
           {!isLoading ? (
-            '승인'
+            !newNumber ? (
+              '승인'
+            ) : (
+              '이미 승인된 제보입니다.'
+            )
           ) : (
             <FiLoader className={classNames('spin', spinAnimation.className)} />
           )}
-          {newNumber && <span>이미 승인된 제보입니다.</span>}
         </button>
         <p>
           2. 아래 버튼을 클릭하고 페이스북 페이지에 게시글로 붙여넣기하여
