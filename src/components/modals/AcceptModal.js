@@ -28,7 +28,7 @@ const spinAnimation = css.resolve`
 function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
   const [fbLink, setFbLink] = useState('')
   const [isLoading, setLoading] = useState(false)
-  const [newNumber, setNewNumber] = useState(null)
+  const [newNumber, setNewNumber] = useState(post.number)
   const [isCopySuccess, setCopySuccess] = useState(false)
 
   const reset = () => {
@@ -81,6 +81,7 @@ function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
           ) : (
             <FiLoader className={classNames('spin', spinAnimation.className)} />
           )}
+          {newNumber && <span>이미 승인된 제보입니다.</span>}
         </button>
         <p>
           2. 아래 버튼을 클릭하고 페이스북 페이지에 게시글로 붙여넣기하여
@@ -99,7 +100,7 @@ function AcceptModal({ post, modalHandler, onAccept, onUpdateFbLink }) {
           onCopy={() => setCopySuccess(true)}
         >
           <button type="button" disabled={!newNumber}>
-            클립보드에 복사
+            {newNumber ? '클립보드에 복사' : '승인 처리를 먼저 해주세요'}
           </button>
         </CopyToClipboard>
         {isCopySuccess && (
